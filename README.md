@@ -1,3 +1,9 @@
+# Requirements
+
+Catch, cmake, make, g++
+
+To download catch run `./install.sh` or you can manually download it into the `tests` directory
+
 # Build
 
 Building is done using cmake, to build run
