@@ -5,5 +5,5 @@
 
 TEST_CASE("base shape") {
     auto basicCircle = Circle(1);
-    REQUIRE_NOTHROW();
+    REQUIRE_NOTHROW(basicCircle.getBoundingBox() == basicCircle.getBoundingBox());
 }

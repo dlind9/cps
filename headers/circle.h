@@ -13,7 +13,7 @@ class Circle : public Shape {
         Circle(int radius);
         ~Circle() override = default;
 
-        BoundingBox getBoundingBox() override {
+        const BoundingBox getBoundingBox() const override {
             return BoundingBox(2*radius, 2*radius);
         }
 };
