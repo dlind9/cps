@@ -3,7 +3,7 @@
 
 #include "catch.hpp"
 
-TEST_CASE("base shape") {
+TEST_CASE("basic circle") {
     auto basicCircle = Circle(1);
 
     SECTION("test boundingBox is correct size") {

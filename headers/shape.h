@@ -9,10 +9,11 @@ class Shape {
         BoundingBox boundingBox;
 
     public:
+        Shape()=default;
         Shape(const Point & center, const BoundingBox & boundingBox);
         virtual ~Shape() = default;
 
-        virtual BoundingBox getBoundingBox() = 0;
+        virtual const BoundingBox getBoundingBox() const = 0;
 };
 
 #endif // SHAPE_H
