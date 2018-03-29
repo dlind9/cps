@@ -102,6 +102,26 @@ TEST_CASE("Polygons: bounding box correctness") {
 		REQUIRE(octogon.getBoundingBox() == testOctoBox);
 		REQUIRE(nonagon.getBoundingBox() == testNonaBox);
 	}
+	
+	auto bigpentagon = Polygon(5,2);
+	auto bighexagon = Polygon(6,3);
+	auto bigseptagon = Polygon(7,4);
+	auto bigoctogon = Polygon(8,5);
+	auto bignonagon = Polygon(9,6);
+	
+	auto bigtestPentaBox = BoundingBox(polyHeight(5,2), polyWidth(5,2));
+	auto bigtestHexaBox = BoundingBox(polyHeight(6,3), polyWidth(6,3));
+	auto bigtestSeptaBox = BoundingBox(polyHeight(7,4), polyWidth(7,4));
+	auto bigtestOctoBox = BoundingBox(polyHeight(8,5), polyWidth(8,5));
+	auto bigtestNonaBox = BoundingBox(polyHeight(9,6), polyWidth(9,6));
+	
+	SECTION("larger test shapes have proper bounding boxes") {
+		REQUIRE(bigpentagon.getBoundingBox() == bigtestPentaBox);
+		REQUIRE(bighexagon.getBoundingBox() == bigtestHexaBox);
+		REQUIRE(bigseptagon.getBoundingBox() == bigtestSeptaBox);
+		REQUIRE(bigoctogon.getBoundingBox() == bigtestOctoBox);
+		REQUIRE(bignonagon.getBoundingBox() == bigtestNonaBox);
+	}
 }
 
 TEST_CASE("Polygons: copiable") {
