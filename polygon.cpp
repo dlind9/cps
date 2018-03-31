@@ -39,31 +39,25 @@ Polygon::Polygon(const size_t & numSides, const size_t & sideLen)
 	else throw "An error hath!: unable to determine bounding box width and height";
 }
 
-/* Polygon::Polygon(const Polygon & other)
-	:_numSides(other._numSides),
-	_sideLen(other._sideLen),
-	_boundBox(other._boundBox) {}
+const BoundingBox Polygon::getBoundingBox() const {
+	return _boundBox;
+}
 
-Polygon Polygon::operator=(const Polygon & other) {
-	Polygon copyPolygon(other);
-	swap(copyPolygon);
-	return *this;
-} */
+const size_t Polygon::getSize() const {
+	return _sideLen;
+}
+
+void Polygon::setSize(const size_t & fx, const size_t & fy) {
+	_boundBox._height *= fx;
+	_boundBox._width *= fy;
+}
 
 const size_t Polygon::getNumOfSides() const {
 	return _numSides;
 }
 
-const size_t Polygon::getLenOfSides() const {
-	return _sideLen;
-}
-
-const BoundingBox Polygon::getBoundingBox() const {
-	return _boundBox;
-}
-
 bool operator==(const Polygon & lhs, const Polygon & rhs) {
 	return lhs.getNumOfSides() == rhs.getNumOfSides() &&
-		lhs.getLenOfSides() == rhs.getLenOfSides() &&
+		lhs.getSize() == rhs.getSize() &&
 		lhs.getBoundingBox() == rhs.getBoundingBox();
 }

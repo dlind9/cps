@@ -1,0 +1,1 @@
+g++ -std=c++14 circle.cpp models.cpp polygon.cpp shape.cpp tests/test-circle.cpp tests/test-main.cpp tests/test-polygon.cpp tests/test-shape.cpp tests/test-scale.cpp

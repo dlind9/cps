@@ -17,12 +17,16 @@ class Polygon : public Shape {
 		
 		// Compiler takes care of copy and move
 		
-		const size_t getNumOfSides() const;
-		const size_t getLenOfSides() const;
-		
+		// Inherited member functions
 		const BoundingBox getBoundingBox() const override;
+		const size_t getSize() const override;
+		void setSize(const size_t &, const size_t &) override;
+		
+		// Shape specific member functions
+		const size_t getNumOfSides() const;
 };
 
+// intended for debug only
 bool operator==(const Polygon & lhs, const Polygon & rhs);
 
 #endif // POLYGON_H

@@ -1,6 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include <cstdlib>
 #include "models.h"
 
 class Shape {
@@ -14,6 +15,8 @@ class Shape {
         virtual ~Shape() = default;
 
         virtual const BoundingBox getBoundingBox() const = 0;
+		virtual const size_t getSize() const = 0;
+		virtual void setSize(const size_t &, const size_t &) = 0;
 };
 
 #endif // SHAPE_H

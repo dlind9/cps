@@ -13,9 +13,9 @@ class Circle : public Shape {
         Circle(int radius);
         ~Circle() override = default;
 
-        const BoundingBox getBoundingBox() const override {
-            return BoundingBox(2*radius, 2*radius);
-        }
+        const BoundingBox getBoundingBox() const override;
+		const size_t getSize() const override;
+		void setSize(const size_t &, const size_t &) override;
 };
 
 #endif // CIRLCE_H
