@@ -4,18 +4,23 @@
 #include "shape.h"
 
 #include <cstdlib>
+#include <string>
 
 class Circle : public Shape {
     private:
-        size_t radius;
+        double _radius;
 
     public:
-        Circle(int radius);
+        Circle(double radius);
         ~Circle() override = default;
 
-        const BoundingBox getBoundingBox() const override;
-		const size_t getSize() const override;
-		void setSize(const size_t &, const size_t &) override;
+        std::string postscript() const;
+        void replaceWithValue(
+            std::string token,
+            std::string & psTemplate
+        ) const;
+
+        const BoundingBox getBoundingBox() const;
 };
 
 #endif // CIRLCE_H

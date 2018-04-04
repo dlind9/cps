@@ -3,30 +3,29 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <string>
 #include "shape.h"
+
 
 class Polygon : public Shape {
 	private:
-		const size_t _numSides, _sideLen;
+		using size_type = size_t;
+		const size_type _numSides, _sideLen;
 		BoundingBox _boundBox;
 
 	public:
 		Polygon() = delete;
-		Polygon(const size_t & numSides, const size_t & sideLen);
+		Polygon(const size_type & numSides, const size_type & sideLen);
 		~Polygon() override = default;
-		
+
 		// Compiler takes care of copy and move
-		
-		// Inherited member functions
-		const BoundingBox getBoundingBox() const override;
-		const size_t getSize() const override;
-		void setSize(const size_t &, const size_t &) override;
-		
-		// Shape specific member functions
-		const size_t getNumOfSides() const;
+
+		const size_type getNumOfSides() const;
+		const size_type getLenOfSides() const;
+		const BoundingBox getBoundingBox() const;
+		virtual std::string postscript(std::string &, const size_type &, const size_type &);
 };
 
-// intended for debug only
 bool operator==(const Polygon & lhs, const Polygon & rhs);
 
 #endif // POLYGON_H

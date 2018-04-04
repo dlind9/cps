@@ -2,20 +2,25 @@
 #define MODELS_H
 
 #include <cstdlib>
+#include <ostream>
+#include <string>
 
 struct Point {
-    int _x, _y;
+    int x, y;
 
-    Point(int xInit=0, int yInit=0) : _x(xInit), _y(yInit) {}
+    Point() = default;
+    Point(int x, int y) : x(x), y(y) {}
 };
 
 struct BoundingBox {
-    size_t _height, _width;
+    double height, width;
 
     BoundingBox() = default;
-    BoundingBox(size_t initialHeight, size_t initialWidth): _height(initialHeight), _width(initialWidth) {}
+    BoundingBox(double h, double w): height(h), width(w) {}
+
+    std::string toString() const;
 };
 
 bool operator==(const BoundingBox & lhs, const BoundingBox & rhs);
-
+std::ostream& operator <<(std::ostream& os, const BoundingBox & value);
 #endif // MODELS_H
