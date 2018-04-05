@@ -6,10 +6,9 @@
 #include <string>
 #include "shape.h"
 
-
 class Polygon : public Shape {
 	private:
-		using size_type = size_t;
+		using size_type = double;
 		const size_type _numSides, _sideLen;
 		BoundingBox _boundBox;
 

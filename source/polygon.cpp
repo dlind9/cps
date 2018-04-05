@@ -7,7 +7,7 @@ using std::string;
 using std::to_string;
 #include "../headers/polygon.h"
 
-Polygon::Polygon(const size_t & numSides, const size_t & sideLen)
+Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
 	:_numSides(numSides),
 	_sideLen(sideLen) {
 	if (numSides < 2) {
@@ -21,26 +21,26 @@ Polygon::Polygon(const size_t & numSides, const size_t & sideLen)
 		throw err;
 	}
 
-	if (numSides%2==1) {
+	if (fmod(numSides,2)==1) {
 		_boundBox.height = sideLen*(1+cos(M_PI/numSides)/(2*sin(M_PI/numSides)));
 		_boundBox.width = (sideLen*sin(M_PI_2*(numSides-1)/numSides))/(sin(M_PI/numSides));
 	}
-	else if (numSides%4==0) {
+	else if (fmod(numSides,4)==0) {
 		_boundBox.height = sideLen*(cos(M_PI/numSides))/(sin(M_PI/numSides));
 		_boundBox.width = (sideLen*cos(M_PI/numSides))/(sin(M_PI/numSides));
 	}
-	else if (numSides%2==0 && numSides%4!=0) {
+	else if (fmod(numSides,2)==0) {
 		_boundBox.height = sideLen*(cos(M_PI/numSides))/(sin(M_PI/numSides));
 		_boundBox.width = sideLen/(sin(M_PI/numSides));
 	}
 	else throw "An error hath!: unable to determine bounding box width and height";
 }
 
-const size_t Polygon::getNumOfSides() const {
+const Polygon::size_type Polygon::getNumOfSides() const {
 	return _numSides;
 }
 
-const size_t Polygon::getLenOfSides() const {
+const Polygon::size_type Polygon::getLenOfSides() const {
 	return _sideLen;
 }
 
