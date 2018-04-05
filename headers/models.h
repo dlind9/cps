@@ -28,9 +28,26 @@ struct Translation : XYPair {
     Translation(double x, double y) : XYPair(x, y) {}
 
     std::string postscript() override {
-        return std::to_string(x) + " " + std::to_string(y) + " translaten\n";
+        return std::to_string(x) + " " + std::to_string(y) + " translate\n";
     }
 };
+
+struct Rotation : Transformation {
+    size_t ticks;
+    bool isClockwise;
+
+    Rotation(size_t ticks, bool isClockwise=true):
+        ticks(ticks),
+        isClockwise(isClockwise) {};
+
+    std::string postscript() override {
+        auto direction = (isClockwise) ? 1 : -1;
+        auto degrees = 90 * ticks;
+
+        return std::to_string(direction * degrees) + " rotate\n";
+    }
+};
+
 
 struct Point {
     double x, y;
@@ -40,14 +57,6 @@ struct Point {
 };
 
 
-struct Rotation {
-    size_t ticks;
-    bool isClockwise;
-
-    Rotation(size_t ticks, bool isClockwise=true):
-        ticks(ticks),
-        isClockwise(isClockwise) {};
-};
 
 struct BoundingBox {
     double height, width;

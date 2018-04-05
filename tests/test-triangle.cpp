@@ -9,9 +9,6 @@ TEST_CASE("Triangles")	{
 	auto triangle1 = Triangle(1);
 
 	SECTION("Bounding box test for triangle") {
-		auto triangleBox = triangle1.getBoundingBox();
-
-		//REQUIRE(triangleBox == BoundingBox(1,1));
 	}
 }
 

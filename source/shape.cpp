@@ -1,14 +1,14 @@
 #include "../headers/shape.h"
 
 
-void scale(Scale s) {
-
+void Shape::scale(Scale s) {
+     transformation += s.postscript();
 }
 
-void translate(Translation t) {
-
+void Shape::translate(Translation t) {
+     transformation += t.postscript();
 }
 
-void rotate(Rotation r) {
-
+void Shape::rotate(Rotation r) {
+    transformation += r.postscript();
 }
