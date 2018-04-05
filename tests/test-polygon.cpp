@@ -104,7 +104,7 @@ TEST_CASE("Polygons: copiable") {
 
 TEST_CASE("Polygons: Draw to PostScript") {
 	auto octogon = Polygon(8,20);
-	string output = ""; // could do "/inch {72 mul} def\n\n\n\n" but we're not using doubles...
+	string output = ""; // could do "/inch {72 mul} def\n\n\n\n"
 	SECTION("Can write output") {
 		REQUIRE_NOTHROW(output = octogon.postscript(output));
         ofstream of("ps-example/test-polygon.ps");
@@ -112,8 +112,5 @@ TEST_CASE("Polygons: Draw to PostScript") {
 			of << output << std::endl;
 			of.close();
 		}
-
 	}
-
-
 }

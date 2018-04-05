@@ -5,6 +5,7 @@
 
 #include "catch.hpp"
 #include <fstream>
+using std::ofstream;
 #include <iostream>
 
 TEST_CASE("transformations") {
@@ -45,8 +46,11 @@ TEST_CASE("transformations") {
 
         REQUIRE(before.length() < after.length());
 
-        std::ofstream of("test-circle.ps");
-        of << after << std::endl;
+        ofstream of("ps-example/test-transforms.ps");
+		if (of.is_open()) {
+			of << after << std::endl;
+			of.close();
+		}
     }
 }
 
