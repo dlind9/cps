@@ -1,3 +1,6 @@
+*.ps
+*.pdf
+
 # cmake files
 CMakeCache.txt
 CMakeFiles
