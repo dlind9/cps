@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 using std::string;
+#include <fstream>
+using std::ofstream;
 
 TEST_CASE("Triangles")	{
 	auto triangle1 = Triangle(1);
@@ -17,5 +19,10 @@ TEST_CASE("Triangles: Draw to PostScript") {
 	string output = ""; // could do "/inch {72 mul} def\n\n\n\n" but we're not using doubles...
 	SECTION("Can write output") {
 		REQUIRE_NOTHROW(output = triangle.postscript(output));
+		ofstream of("ps-example/test-triangle.ps");
+		if (of.is_open()) {
+			of << output << std::endl;
+			of.close();
+		}
 	}
 }

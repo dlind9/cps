@@ -21,11 +21,11 @@ std::string Rectangle::postscript(std::string & outStream, const size_type & x, 
 	outStream = outStream + "newpath\n";
 	outStream = outStream + to_string(xStart) + " " + to_string(yStart) + " moveto\n";
 	outStream = outStream + to_string(_boundingBox.width) + " 0 rlineto\n";
-	outStream = outStream + "0 " + to_string(_boundingBox.height) + "rlineto\n";
+	outStream = outStream + "0 " + to_string(_boundingBox.height) + " rlineto\n";
 	outStream = outStream + to_string(-_boundingBox.width) + " 0 rlineto\n";
 	outStream = outStream + "closepath\n";
 	outStream = outStream + "stroke\n";
-	outStream = outStream + "restore\n\n\n\n";
+	outStream = outStream + "grestore\n\n\n\n";
 	
 	return outStream;
 }

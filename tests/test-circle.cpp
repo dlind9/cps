@@ -5,6 +5,8 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+using std::ofstream;
 
 TEST_CASE("basic circle") {
     auto basicCircle = Circle(1);
@@ -19,5 +21,10 @@ TEST_CASE("basic circle") {
     SECTION("basic post script output") {
         std::string output = "";
         REQUIRE_NOTHROW(output = basicCircle.postscript());
+		ofstream of("ps-example/test-circle.ps");
+		if (of.is_open()) {
+			of << output << std::endl;
+			of.close();
+		}
     }
 }

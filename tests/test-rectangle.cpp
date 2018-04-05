@@ -7,6 +7,8 @@
 using std::string;
 #include <vector>
 using std::vector;
+#include <fstream>
+using std::ofstream;
 
 TEST_CASE("rectangle") {
     vector<Rectangle> rects = {
@@ -33,5 +35,10 @@ TEST_CASE("Rectangles: Draw to PostScript") {
 	string output = ""; // could do "/inch {72 mul} def\n\n\n\n"
 	SECTION("Can write output") {
 		REQUIRE_NOTHROW(output = rectangle.postscript(output, 200, 200));
+		ofstream of("ps-example/test-rectangle.ps");
+		if (of.is_open()) {
+			of << output << std::endl;
+			of.close();
+		}
 	}
 }
