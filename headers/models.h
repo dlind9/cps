@@ -13,7 +13,15 @@ struct Point {
     Point(double x, double y) : x(x), y(y) {}
 };
 
+class StringTemplate {
+    private:
+        std::string total;
+    public:
+        StringTemplate(std::string t);
 
+        std::string get();
+        StringTemplate& replaceTokenWithValue(const std::string & token, std::string value);
+};
 
 struct BoundingBox {
     double height, width;

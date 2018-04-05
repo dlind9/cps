@@ -15,10 +15,6 @@ class Circle : public Shape {
         ~Circle() override = default;
 
         std::string postscript() const;
-        void replaceWithValue(
-            std::string token,
-            std::string & psTemplate
-        ) const;
 
         const BoundingBox getBoundingBox() const;
 };

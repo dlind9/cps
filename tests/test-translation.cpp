@@ -4,23 +4,22 @@
 #include "../headers/circle.h"
 
 #include "catch.hpp"
+#include <fstream>
 #include <iostream>
-using std::cout;
-using std::endl;
 
 TEST_CASE("transformations") {
     auto circle = Circle(1);
+    auto correctScale = "1.000000 1.000000 scale\n";
+    auto correctTranslate = "1.000000 1.000000 translate\n";
 
     SECTION("test scale") {
         circle.scale(1., 1.);
-        auto correctScale = "1.000000 1.000000 scale\n";
 
         REQUIRE(circle.getTransform() == correctScale);
     }
 
     SECTION("test translate") {
         circle.translate(1., 1.);
-        auto correctTranslate = "1.000000 1.000000 translate\n";
 
         REQUIRE(circle.getTransform() == correctTranslate);
     }
@@ -33,6 +32,21 @@ TEST_CASE("transformations") {
 
             REQUIRE(c.getTransform() == correct);
         }
+    }
+
+    SECTION("transformation adds to overall postscript output") {
+        auto before = circle.postscript();
+
+        circle
+            .translate(1, 2)
+            .rotate(2);
+
+        auto after = circle.postscript();
+
+        REQUIRE(before.length() < after.length());
+
+        std::ofstream of("test-circle.ps");
+        of << before << std::endl;
     }
 }
 

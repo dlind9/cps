@@ -14,11 +14,11 @@ class Shape {
         Shape()=default;
         virtual ~Shape() = default;
 
-        std::string getTransform();
+        std::string getTransform() const;
 
-        void scale(double x, double y);
-        void translate(double x, double y);
-        void rotate(int ticks);
+        Shape& scale(double x, double y);
+        Shape& translate(double x, double y);
+        Shape& rotate(int ticks);
 };
 
 

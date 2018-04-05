@@ -1,20 +1,36 @@
 #include "../headers/shape.h"
+#include "../headers/models.h"
 
+#include <string>
 
-void Shape::scale(double x, double y) {
-     transformation += std::to_string(x) + " " + std::to_string(y) + " scale\n";
+Shape& Shape::scale(double x, double y) {
+    transformation += StringTemplate("${ x }$ ${ y }$ scale\n")
+        .replaceTokenWithValue("x", std::to_string(x))
+        .replaceTokenWithValue("y", std::to_string(y))
+        .get();
+
+     return *this;
 }
 
-void Shape::translate(double x, double y) {
-     transformation += std::to_string(x) + " " + std::to_string(y) + " translate\n";
+Shape& Shape::translate(double x, double y) {
+    transformation += StringTemplate("${ x }$ ${ y }$ translate\n")
+        .replaceTokenWithValue("x", std::to_string(x))
+        .replaceTokenWithValue("y", std::to_string(y))
+        .get();
+
+     return *this;
 }
 
-void Shape::rotate(int ticks) {
+Shape& Shape::rotate(int ticks) {
     auto degrees = 90. * ticks;
 
-    transformation += std::to_string(degrees) + " rotate\n";
+    transformation += StringTemplate("${ degrees }$ rotate\n")
+        .replaceTokenWithValue("degrees", std::to_string(degrees))
+        .get();
+
+    return *this;
 }
 
-std::string Shape::getTransform() {
+std::string Shape::getTransform() const {
     return transformation;
 }
