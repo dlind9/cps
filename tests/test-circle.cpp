@@ -22,4 +22,8 @@ TEST_CASE("basic circle") {
 
         std::cout << output << std::endl;
     }
+
+    SECTION("transformations work") {
+
+    }
 }

@@ -1,32 +1,37 @@
 #include "../headers/models.h"
 #include "../headers/models.h"
 
+#include "../headers/circle.h"
+
 #include "catch.hpp"
 #include <iostream>
 using std::cout;
 using std::endl;
 
 TEST_CASE("transformations") {
+    auto circle = Circle(1);
+
     SECTION("test scale") {
-        auto s = Scale(1., 1.);
+        circle.scale(1., 1.);
         auto correctScale = "1.000000 1.000000 scale\n";
 
-        REQUIRE(s.postscript() == correctScale);
+        REQUIRE(circle.getTransform() == correctScale);
     }
 
     SECTION("test translate") {
-        auto t = Translation(1., 1.);
+        circle.translate(1., 1.);
         auto correctTranslate = "1.000000 1.000000 translate\n";
 
-        REQUIRE(t.postscript() == correctTranslate);
+        REQUIRE(circle.getTransform() == correctTranslate);
     }
 
     SECTION("test rotation") {
         for (int i = -4; i < 5; ++i) {
-            auto r = Rotation(i);
+            auto c = Circle(1);
+            c.rotate(i);
             auto correct = std::to_string(90. * i) + " rotate\n";
 
-            REQUIRE(r.postscript() == correct);
+            REQUIRE(c.getTransform() == correct);
         }
     }
 }
