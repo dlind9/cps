@@ -10,13 +10,15 @@ class Shape {
 
         std::string transformation;
 
-        void scale(Scale s);
-        void translate(Translation t);
-        void rotate(Rotation r);
-
     public:
         Shape()=default;
         virtual ~Shape() = default;
+
+        std::string getTransform() const;
+
+        Shape& scale(double x, double y);
+        Shape& translate(double x, double y);
+        Shape& rotate(int ticks);
 };
 
 

@@ -1,10 +1,13 @@
 #include "../headers/circle.h"
+#include "../headers/models.h"
 
 #include <string>
 using std::string;
 using std::to_string;
 #include <cmath>
 using std::round;
+
+#include <iostream>
 
 Circle::Circle(double r):
     _radius(r) {
@@ -15,33 +18,31 @@ const BoundingBox Circle::getBoundingBox() const {
 }
 
 string Circle::postscript() const {
-    string psTemplate = R"ps(
-        /inch {72 mul} def
 
+    int r = round(_radius);
+    auto transforms = this->getTransform();
+    std::cout << transforms << std::endl;
+
+
+    std::string circlePsText = R"ps(
         gsave
-        8.5 inch 2 div 11 inch 2 div translate
+
+        ${ transformations }$
+
+        8.5 2 div 11 72 mul 2 72 mul div translate
         5 setlinewidth
         0 0 ${ radius }$ 0 360 arc closepath stroke
         grestore
     )ps";
 
-    replaceWithValue("radius", psTemplate);
+    auto formattedPsOutput = StringTemplate(circlePsText)
+        .replaceTokenWithValue("radius", to_string(r))
+        .replaceTokenWithValue("transformations", transforms)
+        .get();
 
-    return psTemplate;
+    return formattedPsOutput;
 }
 
-void Circle::replaceWithValue(string token, string & psTemplate) const {
-    auto formattedToken = "${ " + token + " }$";
-
-    auto pos = psTemplate.find(formattedToken);
-    int r = round(_radius);
-
-    psTemplate.replace(
-        pos,
-        formattedToken.length(),
-        to_string(r)
-    );
-}
 
 
 

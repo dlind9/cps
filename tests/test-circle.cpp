@@ -4,6 +4,7 @@
 #include "catch.hpp"
 
 #include <iostream>
+#include <string>
 
 TEST_CASE("basic circle") {
     auto basicCircle = Circle(1);
@@ -16,9 +17,8 @@ TEST_CASE("basic circle") {
     }
 
     SECTION("basic post script output") {
-
-        REQUIRE_NOTHROW(basicCircle.postscript());
-        auto output = basicCircle.postscript();
+        std::string output = "";
+        REQUIRE_NOTHROW(output = basicCircle.postscript());
 
         std::cout << output << std::endl;
     }

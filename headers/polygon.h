@@ -21,7 +21,8 @@ class Polygon : public Shape {
 		const size_type getNumOfSides() const;
 		const size_type getLenOfSides() const;
 		const BoundingBox getBoundingBox() const;
-		virtual std::string postscript(std::string &, const size_type &, const size_type &);
+
+		virtual std::string postscript(std::string &);
 };
 
 bool operator==(const Polygon & lhs, const Polygon & rhs);
