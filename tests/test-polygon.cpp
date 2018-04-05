@@ -42,7 +42,7 @@ TEST_CASE("Polygons: basic polygons") {
 
 int polyHeight(const int & n, const int & e) {
 	if (n%2==1)
-		return e*(1+cos(M_PI/n)/(2*sin(M_PI/n)));
+		return (e*(1+cos(M_PI/n)))/(2*sin(M_PI/n));
 	else if (n%4==0)
 		return e*(cos(M_PI/n))/(sin(M_PI/n));
 	else if (n%2==0 && n%4!=0)
@@ -51,7 +51,7 @@ int polyHeight(const int & n, const int & e) {
 
 int polyWidth(const int & n, const int & e) {
 	if (n%2==1)
-		return (e*sin(M_PI*(n-1)/2*n))/(sin(M_PI/n));
+		return (e*sin(M_PI*(n-1)/(2*n))/(sin(M_PI/n)));
 	else if (n%4==0)
 		return (e*cos(M_PI/n))/(sin(M_PI/n));
 	else if (n%2==0 && n%4!=0)
