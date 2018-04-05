@@ -16,9 +16,9 @@ class Shape {
 
         std::string getTransform() const;
 
-        Shape& scale(double x, double y);
-        Shape& translate(double x, double y);
-        Shape& rotate(int ticks);
+        void scale(double x, double y);
+        void translate(double x, double y);
+        void rotate(int ticks);
 };
 
 

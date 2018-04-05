@@ -18,26 +18,23 @@ const BoundingBox Circle::getBoundingBox() const {
 }
 
 string Circle::postscript() const {
-
     int r = round(_radius);
-    auto transforms = this->getTransform();
-    std::cout << transforms << std::endl;
-
+    std::string transforms = this->getTransform();
 
     std::string circlePsText = R"ps(
         gsave
 
         ${ transformations }$
 
-        8.5 2 div 11 72 mul 2 72 mul div translate
-        5 setlinewidth
+        1 setlinewidth
         0 0 ${ radius }$ 0 360 arc closepath stroke
+
         grestore
     )ps";
 
     auto formattedPsOutput = StringTemplate(circlePsText)
-        .replaceTokenWithValue("radius", to_string(r))
         .replaceTokenWithValue("transformations", transforms)
+        .replaceTokenWithValue("radius", to_string(r))
         .get();
 
     return formattedPsOutput;

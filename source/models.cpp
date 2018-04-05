@@ -5,19 +5,25 @@ using std::ostream;
 using std::string;
 #include <sstream>
 using std::ostringstream;
+#include <iostream>
+
+
+std::string replaceFirstOccurrence(std::string& s,
+    const std::string& toReplace,
+    const std::string& replaceWith)
+{
+    std::size_t pos = s.find(toReplace);
+    if (pos == std::string::npos) return s;
+    return s.replace(pos, toReplace.length(), replaceWith);
+}
+
 
 StringTemplate::StringTemplate(std::string t) : total(t) {}
 
 StringTemplate& StringTemplate::replaceTokenWithValue(const string & token, string value) {
     auto formattedToken = "${ " + token + " }$";
 
-    auto pos = total.find(formattedToken);
-
-    total.replace(
-        pos,
-        formattedToken.length(),
-        value
-    );
+    replaceFirstOccurrence(total, formattedToken, value);
 
     return *this;
 }

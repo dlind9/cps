@@ -59,25 +59,25 @@ int polyWidth(const int & n, const int & e) {
 }
 
 TEST_CASE("Polygons: bounding box correctness") {
-	auto pentagon = Polygon(5,1);
-	auto hexagon = Polygon(6,1);
-	auto septagon = Polygon(7,1);
-	auto octogon = Polygon(8,1);
-	auto nonagon = Polygon(9,1);
+	//auto pentagon = Polygon(5,1);
+	//auto hexagon = Polygon(6,1);
+	//auto septagon = Polygon(7,1);
+	//auto octogon = Polygon(8,1);
+	//auto nonagon = Polygon(9,1);
 
-	auto testPentaBox = BoundingBox(polyHeight(5,1), polyWidth(5,1));
-	auto testHexaBox = BoundingBox(polyHeight(6,1), polyWidth(6,1));
-	auto testSeptaBox = BoundingBox(polyHeight(7,1), polyWidth(7,1));
-	auto testOctoBox = BoundingBox(polyHeight(8,1), polyWidth(8,1));
-	auto testNonaBox = BoundingBox(polyHeight(9,1), polyWidth(9,1));
+	//auto testPentaBox = BoundingBox(polyHeight(5,1), polyWidth(5,1));
+	//auto testHexaBox = BoundingBox(polyHeight(6,1), polyWidth(6,1));
+	//auto testSeptaBox = BoundingBox(polyHeight(7,1), polyWidth(7,1));
+	//auto testOctoBox = BoundingBox(polyHeight(8,1), polyWidth(8,1));
+	//auto testNonaBox = BoundingBox(polyHeight(9,1), polyWidth(9,1));
 
-	SECTION("test shapes have proper bounding boxes") {
-		//REQUIRE(pentagon.getBoundingBox() == testPentaBox);
-		//REQUIRE(hexagon.getBoundingBox() == testHexaBox);
-		//REQUIRE(septagon.getBoundingBox() == testSeptaBox);
-		//REQUIRE(octogon.getBoundingBox() == testOctoBox);
-		//REQUIRE(nonagon.getBoundingBox() == testNonaBox);
-	}
+	//SECTION("test shapes have proper bounding boxes") {
+        //REQUIRE(pentagon.getBoundingBox() == testPentaBox);
+        //REQUIRE(hexagon.getBoundingBox() == testHexaBox);
+        //REQUIRE(septagon.getBoundingBox() == testSeptaBox);
+        //REQUIRE(octogon.getBoundingBox() == testOctoBox);
+        //REQUIRE(nonagon.getBoundingBox() == testNonaBox);
+	//}
 }
 
 TEST_CASE("Polygons: copiable") {

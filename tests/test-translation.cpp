@@ -37,17 +37,16 @@ TEST_CASE("transformations") {
     SECTION("transformation adds to overall postscript output") {
         auto before = circle.postscript();
 
-        circle = circle
-            .translate(1, 2)
-            .rotate(2)
-            .scale(10, 10);
+        circle.translate(200, 200);
+        circle.rotate(2);
+        circle.scale(10, 10);
 
         auto after = circle.postscript();
 
         REQUIRE(before.length() < after.length());
 
         std::ofstream of("test-circle.ps");
-        of << before << std::endl;
+        of << after << std::endl;
     }
 }
 

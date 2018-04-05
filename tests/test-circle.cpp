@@ -19,7 +19,5 @@ TEST_CASE("basic circle") {
     SECTION("basic post script output") {
         std::string output = "";
         REQUIRE_NOTHROW(output = basicCircle.postscript());
-
-        std::cout << output << std::endl;
     }
 }
