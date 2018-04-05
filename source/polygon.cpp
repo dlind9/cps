@@ -22,8 +22,8 @@ Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
 	}
 
 	if (fmod(numSides,2)==1) {
-		_boundBox.height = sideLen*(1+cos(M_PI/numSides)/(2*sin(M_PI/numSides)));
-		_boundBox.width = (sideLen*sin(M_PI_2*(numSides-1)/numSides))/(sin(M_PI/numSides));
+		_boundBox.height = (sideLen*(1+cos(M_PI/numSides)))/(2*sin(M_PI/numSides));
+		_boundBox.width = (sideLen*sin(M_PI*(numSides-1)/(2*numSides))/(sin(M_PI/numSides)));
 	}
 	else if (fmod(numSides,4)==0) {
 		_boundBox.height = sideLen*(cos(M_PI/numSides))/(sin(M_PI/numSides));
