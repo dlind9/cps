@@ -3,7 +3,7 @@ project(CheckersAi)
 
 # Compiler Options
 set(CMAKE_CXX_FLAGS "-O3 -Wall")
-set (CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(headers)
@@ -27,11 +27,13 @@ add_executable(cps.out source/main.cpp ${SOURCES})
 
 set(CATCH_INCLUDE_DIR tests)
 set(TEST_SOURCES
-    tests/test-main.cpp
     tests/test-circle.cpp
-    tests/test-rectangle.cpp
+    tests/test-main.cpp
     tests/test-polygon.cpp
+    tests/test-rectangle.cpp
+    tests/test-shape.cpp
     tests/test-triangle.cpp
+    tests/test-translation.cpp
 )
 
 add_library(Catch INTERFACE)

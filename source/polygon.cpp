@@ -48,11 +48,11 @@ const BoundingBox Polygon::getBoundingBox() const {
 	return _boundBox;
 }
 
-string Polygon::postscript(string & outStream, const size_t & x, const size_t & y) {
+string Polygon::postscript(string & outStream, Transformation t) {
 	size_t xStart = x - _sideLen;
 	size_t yStart = y - _boundBox.height;
 	size_t angle = 360 / _numSides;
-	
+
 	outStream = outStream + "\n\n\n\ngsave\n";
 	outStream = outStream + "newpath\n";
 	outStream = outStream + to_string(xStart) + " " + to_string(yStart) + " moveto\n";
@@ -61,8 +61,8 @@ string Polygon::postscript(string & outStream, const size_t & x, const size_t & 
 		outStream = outStream + to_string(angle) + " rotate\n";
 	}
 	outStream = outStream + "stroke\n";
-	outStream = outStream + "restore\n\n\n\n";
-	
+	outStream = outStream + "grestore\n\n\n\n";
+
 	return outStream;
 }
 

@@ -2,7 +2,10 @@
 
 #include <cmath>
 #include <string>
+#include <iostream>
 using std::string;
+#include <fstream>
+using std::ofstream;
 
 // Multiple inclusion tests
 #include "../headers/polygon.h"
@@ -100,9 +103,14 @@ TEST_CASE("Polygons: copiable") {
 }
 
 TEST_CASE("Polygons: Draw to PostScript") {
-	auto octogon = Polygon(8,1);
+	auto octogon = Polygon(8,20);
 	string output = ""; // could do "/inch {72 mul} def\n\n\n\n" but we're not using doubles...
 	SECTION("Can write output") {
 		REQUIRE_NOTHROW(output = octogon.postscript(output, 200, 200));
+        ofstream of("test.ps");
+        of << output << std::endl;
+
 	}
+
+
 }

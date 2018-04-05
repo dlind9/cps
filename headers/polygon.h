@@ -18,8 +18,6 @@ class Polygon : public Shape {
 		Polygon(const size_type & numSides, const size_type & sideLen);
 		~Polygon() override = default;
 
-		// Compiler takes care of copy and move
-
 		const size_type getNumOfSides() const;
 		const size_type getLenOfSides() const;
 		const BoundingBox getBoundingBox() const;

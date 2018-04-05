@@ -5,11 +5,48 @@
 #include <ostream>
 #include <string>
 
+struct Transformation {
+    virtual std::string postscript() = 0;
+};
+
+struct XYPair : Transformation {
+    double x, y;
+
+    XYPair() = default;
+    XYPair(double x, double y) : Transformation(), x(x), y(y) {}
+};
+
+struct Scale : XYPair {
+    Scale(double x, double y) : XYPair(x, y) {}
+
+    std::string postscript() override {
+        return std::to_string(x) + " " + std::to_string(y) + " scale\n";
+    }
+};
+
+struct Translation : XYPair {
+    Translation(double x, double y) : XYPair(x, y) {}
+
+    std::string postscript() override {
+        return std::to_string(x) + " " + std::to_string(y) + " translaten\n";
+    }
+};
+
 struct Point {
-    int x, y;
+    double x, y;
 
     Point() = default;
-    Point(int x, int y) : x(x), y(y) {}
+    Point(double x, double y) : x(x), y(y) {}
+};
+
+
+struct Rotation {
+    size_t ticks;
+    bool isClockwise;
+
+    Rotation(size_t ticks, bool isClockwise=true):
+        ticks(ticks),
+        isClockwise(isClockwise) {};
 };
 
 struct BoundingBox {

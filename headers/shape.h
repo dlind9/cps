@@ -8,9 +8,16 @@ class Shape {
         Point _center;
         BoundingBox _boundingBox;
 
+        std::string transformation;
+
+        void scale(Scale s);
+        void translate(Translation t);
+        void rotate(Rotation r);
+
     public:
         Shape()=default;
         virtual ~Shape() = default;
 };
+
 
 #endif // SHAPE_H
