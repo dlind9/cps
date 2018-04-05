@@ -7,6 +7,8 @@ using std::to_string;
 #include <cmath>
 using std::round;
 
+#include <iostream>
+
 Circle::Circle(double r):
     _radius(r) {
 };
@@ -19,13 +21,15 @@ string Circle::postscript() const {
 
     int r = round(_radius);
     auto transforms = this->getTransform();
+    std::cout << transforms << std::endl;
+
 
     std::string circlePsText = R"ps(
         gsave
 
         ${ transformations }$
 
-        8.5 inch 2 div 11 72 mul inch 2 72 mul div translate
+        8.5 2 div 11 72 mul 2 72 mul div translate
         5 setlinewidth
         0 0 ${ radius }$ 0 360 arc closepath stroke
         grestore

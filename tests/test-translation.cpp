@@ -37,9 +37,10 @@ TEST_CASE("transformations") {
     SECTION("transformation adds to overall postscript output") {
         auto before = circle.postscript();
 
-        circle
+        circle = circle
             .translate(1, 2)
-            .rotate(2);
+            .rotate(2)
+            .scale(10, 10);
 
         auto after = circle.postscript();
 
