@@ -48,9 +48,9 @@ const BoundingBox Polygon::getBoundingBox() const {
 	return _boundBox;
 }
 
-string Polygon::postscript(string & outStream, Transformation t) {
-	size_t xStart = x - _sideLen;
-	size_t yStart = y - _boundBox.height;
+string Polygon::postscript(string & outStream) {
+	size_t xStart = _sideLen;
+	size_t yStart = _boundBox.height;
 	size_t angle = 360 / _numSides;
 
 	outStream = outStream + "\n\n\n\ngsave\n";

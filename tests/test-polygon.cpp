@@ -106,7 +106,7 @@ TEST_CASE("Polygons: Draw to PostScript") {
 	auto octogon = Polygon(8,20);
 	string output = ""; // could do "/inch {72 mul} def\n\n\n\n" but we're not using doubles...
 	SECTION("Can write output") {
-		REQUIRE_NOTHROW(output = octogon.postscript(output, 200, 200));
+		REQUIRE_NOTHROW(output = octogon.postscript(output));
         ofstream of("test.ps");
         of << output << std::endl;
 
