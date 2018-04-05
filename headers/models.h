@@ -33,18 +33,15 @@ struct Translation : XYPair {
 };
 
 struct Rotation : Transformation {
-    size_t ticks;
-    bool isClockwise;
+    int ticks;
 
-    Rotation(size_t ticks, bool isClockwise=true):
-        ticks(ticks),
-        isClockwise(isClockwise) {};
+    Rotation(int ticks):
+        ticks(ticks) {}
 
     std::string postscript() override {
-        auto direction = (isClockwise) ? 1 : -1;
-        auto degrees = 90 * ticks;
+        auto degrees = 90. * ticks;
 
-        return std::to_string(direction * degrees) + " rotate\n";
+        return std::to_string(degrees) + " rotate\n";
     }
 };
 

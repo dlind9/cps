@@ -10,7 +10,7 @@ TEST_CASE("transformations") {
     SECTION("test scale") {
         auto s = Scale(1., 1.);
         auto correctScale = "1.000000 1.000000 scale\n";
-        cout << s.postscript() << endl;
+
         REQUIRE(s.postscript() == correctScale);
     }
 
@@ -19,6 +19,15 @@ TEST_CASE("transformations") {
         auto correctTranslate = "1.000000 1.000000 translate\n";
 
         REQUIRE(t.postscript() == correctTranslate);
+    }
+
+    SECTION("test rotation") {
+        for (int i = -4; i < 5; ++i) {
+            auto r = Rotation(i);
+            auto correct = std::to_string(90. * i) + " rotate\n";
+
+            REQUIRE(r.postscript() == correct);
+        }
     }
 }
 
