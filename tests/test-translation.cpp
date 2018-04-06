@@ -10,8 +10,8 @@ using std::ofstream;
 
 TEST_CASE("transformations") {
     auto circle = Circle(1);
-    auto correctScale = "1.000000 1.000000 scale\n";
-    auto correctTranslate = "1.000000 1.000000 translate\n";
+    auto correctScale = "1 1 scale\n";
+    auto correctTranslate = "1 1 translate\n";
 
     SECTION("test scale") {
         circle.scale(1., 1.);
@@ -29,7 +29,7 @@ TEST_CASE("transformations") {
         for (int i = -4; i < 5; ++i) {
             auto c = Circle(1);
             c.rotate(i);
-            auto correct = std::to_string(90. * i) + " rotate\n";
+            auto correct = std::to_string(90 * i) + " rotate\n";
 
             REQUIRE(c.getTransform() == correct);
         }
