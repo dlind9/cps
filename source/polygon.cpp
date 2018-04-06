@@ -48,22 +48,22 @@ const BoundingBox Polygon::getBoundingBox() const {
 	return _boundBox;
 }
 
-//takes a pair to choose point on page to draw on with (0,0)
-//printing at bottom left, and a string
+// takes a pair to choose point on page to draw on with (0,0)
+// printing at bottom left, and a string
 string Polygon::postscript(const std::pair<double, double> & startPos, string & outStream) {
 	size_t xStart = startPos.first;
 	size_t yStart = startPos.second;
 	size_t angle = 360 / _numSides;
 
-	outStream = outStream + "\n\n\n\ngsave\n";
-	outStream = outStream + "newpath\n";
-	outStream = outStream + to_string(xStart) + " " + to_string(yStart) + " moveto\n";
+	outStream += "\n\n\n\ngsave\n";
+	outStream += "newpath\n";
+	outStream += to_string(xStart) + " " + to_string(yStart) + " moveto\n";
 	for(size_t i = 0; i < _numSides; ++i) {
-		outStream = outStream + to_string(_sideLen) + " " + to_string(0) + " rlineto\n";
-		outStream = outStream + to_string(angle) + " rotate\n";
+		outStream += to_string(_sideLen) + " " + to_string(0) + " rlineto\n";
+		outStream +=  to_string(angle) + " rotate\n";
 	}
-	outStream = outStream + "stroke\n";
-	outStream = outStream + "grestore\n\n\n\n";
+	outStream += "stroke\n";
+	outStream += "grestore\n\n\n\n";
 
 	return outStream;
 }

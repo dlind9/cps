@@ -33,8 +33,8 @@ string Circle::postscript() const {
     )ps";
 
     auto formattedPsOutput = StringTemplate(circlePsText)
-        .replaceTokenWithValue("transformations", transforms)
-        .replaceTokenWithValue("radius", to_string(r))
+        .replace("transformations", transforms)
+        .replace("radius", to_string(r))
         .get();
 
     return formattedPsOutput;

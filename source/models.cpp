@@ -8,25 +8,22 @@ using std::ostringstream;
 #include <iostream>
 
 
-std::string replaceFirstOccurrence(std::string& s,
-    const std::string& toReplace,
-    const std::string& replaceWith)
-{
-    std::size_t pos = s.find(toReplace);
-    if (pos == std::string::npos) return s;
-    return s.replace(pos, toReplace.length(), replaceWith);
-}
-
 
 StringTemplate::StringTemplate(std::string t) : total(t) {}
 
-StringTemplate& StringTemplate::replaceTokenWithValue(const string & token, string value) {
+StringTemplate& StringTemplate::replace(const std::string & token, const std::string & value) {
     auto formattedToken = "${ " + token + " }$";
 
-    replaceFirstOccurrence(total, formattedToken, value);
+    std::size_t pos = total.find(formattedToken);
+
+    while (pos != std::string::npos) {
+        total = total.replace(pos, formattedToken.length(), value);
+        pos = total.find(formattedToken);
+    }
 
     return *this;
 }
+
 
 std::string StringTemplate::get() {
     return total;

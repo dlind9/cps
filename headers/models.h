@@ -20,7 +20,11 @@ class StringTemplate {
         StringTemplate(std::string t);
 
         std::string get();
-        StringTemplate& replaceTokenWithValue(const std::string & token, std::string value);
+
+        StringTemplate& replace(const std::string & token, const std::string & value);
+
+    private:
+        std::string replaceOp(const std::string & token, const std::string value);
 };
 
 struct BoundingBox {

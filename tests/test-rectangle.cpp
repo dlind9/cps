@@ -32,9 +32,24 @@ TEST_CASE("rectangle") {
 
 TEST_CASE("Rectangles: Draw to PostScript") {
 	auto rectangle = Rectangle(8,4);
-	string output = ""; // could do "/inch {72 mul} def\n\n\n\n"
+    string correct = R"ps(
+        gsave
+        newpath
+        192.000000 196.000000 moveto
+        8.000000 0 rlineto
+        0 4.000000 rlineto
+        -8.000000 0 rlineto
+        closepath
+        stroke
+        grestore
+    )ps";
+
 	SECTION("Can write output") {
+        string output;
+
 		REQUIRE_NOTHROW(output = rectangle.postscript(output, 200, 200));
+        REQUIRE(output == correct);
+
 		ofstream of("ps-example/test-rectangle.ps");
 		if (of.is_open()) {
 			of << output << std::endl;
