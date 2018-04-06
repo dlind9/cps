@@ -16,12 +16,14 @@ set(SOURCES
     headers/models.h
     headers/polygon.h
     headers/triangle.h
+    headers/composite.h
     source/rectangle.cpp
     source/polygon.cpp
     source/shape.cpp
     source/circle.cpp
     source/models.cpp
     source/triangle.cpp
+    source/composite.cpp
 )
 add_executable(cps.out source/main.cpp ${SOURCES})
 
@@ -34,6 +36,7 @@ set(TEST_SOURCES
     tests/test-shape.cpp
     tests/test-triangle.cpp
     tests/test-translation.cpp
+    tests/test-composite.cpp
 )
 
 add_library(Catch INTERFACE)
