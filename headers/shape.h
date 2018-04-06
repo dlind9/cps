@@ -18,7 +18,11 @@ class Shape {
         virtual ~Shape() = default;
 
         virtual std::string postscript() const = 0;
+
         std::string getTransform() const;
+
+        BoundingBox getBoundingBox() const;
+        void setBoundingBox(BoundingBox b);
 
         void scale(double x, double y);
         void translate(double x, double y);

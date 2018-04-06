@@ -15,8 +15,7 @@ class Circle : public Shape {
         ~Circle() override = default;
 
         std::string postscript() const override;
-
-        const BoundingBox getBoundingBox() const;
+        const BoundingBox makeBoundingBox() const;
 };
 
 #endif // CIRLCE_H

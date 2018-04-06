@@ -42,5 +42,19 @@ string LayeredShape::getCompositeShapePS() const {
 }
 
 string HorizontalShape::getCompositeShapePS() const {
-    return "";
+    string total = "";
+
+    auto size = shapes.size();
+    for (size_t i = 0; i < size; ++i) {
+        total += shapes[i]->postscript();
+
+
+        if (i < size - 1) {
+            auto previousShapesWidth = shapes[i]->getBoundingBox().width;
+            cout << previousShapesWidth << endl;
+            shapes[i+1]->translate(previousShapesWidth, 0);
+        }
+    }
+
+    return total;
 }

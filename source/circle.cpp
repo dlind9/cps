@@ -10,10 +10,13 @@ using std::round;
 #include <iostream>
 
 Circle::Circle(double r):
+    Shape(),
     _radius(r) {
+
+    setBoundingBox(makeBoundingBox());
 };
 
-const BoundingBox Circle::getBoundingBox() const {
+const BoundingBox Circle::makeBoundingBox() const {
     return BoundingBox(_radius * 2, _radius * 2);
 }
 

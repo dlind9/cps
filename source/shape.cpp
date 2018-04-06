@@ -29,3 +29,11 @@ void Shape::rotate(int ticks) {
 std::string Shape::getTransform() const {
     return transformation;
 }
+
+BoundingBox Shape::getBoundingBox() const {
+    return _boundingBox;
+}
+
+void Shape::setBoundingBox(BoundingBox bb) {
+    _boundingBox = bb;
+}

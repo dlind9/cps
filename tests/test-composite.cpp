@@ -15,6 +15,14 @@ using std::ofstream;
 using std::endl;
 using std::cout;
 
+void toFile(const std::string & fname, const std::string & output) {
+        ofstream of(fname);
+        if (of.is_open()) {
+            of << output << std::endl;
+            of.close();
+        }
+}
+
 CompositePtr addShapes(CompositePtr & composite) {
     for (auto i = 10; i < 50; i += 10) {
         auto c = make_shared<Circle>(i);
@@ -30,6 +38,7 @@ CompositePtr addShapes(CompositePtr & composite) {
 
     return composite;
 }
+
 TEST_CASE("test composites") {
     SECTION("layered") {
         CompositePtr ss = make_shared<LayeredShape>();
@@ -40,14 +49,17 @@ TEST_CASE("test composites") {
 
         REQUIRE_NOTHROW(out = ss->postscript());
 
-        ofstream of("ps-example/test-stacked.ps");
-        if (of.is_open()) {
-            of << out << std::endl;
-            of.close();
-        }
+        toFile("ps-example/test-stacked.ps", out);
     }
 
     SECTION("horizontal") {
+        CompositePtr hs = make_shared<HorizontalShape>();
 
+        hs = addShapes(hs);
+        std::string out = "";
+
+        REQUIRE_NOTHROW(out = hs->postscript());
+
+        toFile("ps-example/test-horizontal.ps", out);
     }
 }
