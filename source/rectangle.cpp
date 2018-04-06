@@ -21,10 +21,10 @@ std::string Rectangle::postscript(std::string & outStream, const size_type & x, 
     string rectanglePs = R"ps(
         gsave
         newpath
-        ${ x }$ ${ y }$ moveto
-        ${ width }$ 0 rlineto
-        0 ${ height }$ rlineto
-        -${ width }$ 0 rlineto
+        ${x} ${y} moveto
+        ${width} 0 rlineto
+        0 ${height} rlineto
+        -${width} 0 rlineto
         closepath
         stroke
         grestore

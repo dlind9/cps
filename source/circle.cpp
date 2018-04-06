@@ -24,10 +24,10 @@ string Circle::postscript() const {
     std::string circlePsText = R"ps(
         gsave
 
-        ${ transformations }$
+        ${transformations}
 
         1 setlinewidth
-        0 0 ${ radius }$ 0 360 arc closepath stroke
+        0 0 ${radius} 0 360 arc closepath stroke
 
         grestore
     )ps";

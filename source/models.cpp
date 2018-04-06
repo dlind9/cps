@@ -12,7 +12,7 @@ using std::ostringstream;
 StringTemplate::StringTemplate(std::string t) : total(t) {}
 
 StringTemplate& StringTemplate::replace(const std::string & token, const std::string & value) {
-    auto formattedToken = "${ " + token + " }$";
+    auto formattedToken = "${" + token + "}";
 
     std::size_t pos = total.find(formattedToken);
 
