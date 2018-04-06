@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ostream>
 #include <string>
+#include <sstream>
 
 
 struct Point {
@@ -21,11 +22,28 @@ class StringTemplate {
 
         std::string get();
 
-        StringTemplate& replace(const std::string & token, const std::string & value);
-
-    private:
-        std::string replaceOp(const std::string & token, const std::string value);
+        template <typename ToStringType>
+        StringTemplate& replace(const std::string & token, const ToStringType & value);
 };
+
+template <typename ToStringType>
+StringTemplate& StringTemplate::replace(const std::string & token, const ToStringType & value) {
+    auto formattedToken = "${" + token + "}";
+
+    std::ostringstream os;
+    os << value;
+    std::string valueString = os.str();
+
+    std::size_t pos = total.find(formattedToken);
+
+    while (pos != std::string::npos) {
+        total = total.replace(pos, formattedToken.length(), valueString);
+        pos = total.find(formattedToken);
+    }
+
+    return *this;
+}
+
 
 struct BoundingBox {
     double height, width;

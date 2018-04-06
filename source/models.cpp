@@ -11,20 +11,6 @@ using std::ostringstream;
 
 StringTemplate::StringTemplate(std::string t) : total(t) {}
 
-StringTemplate& StringTemplate::replace(const std::string & token, const std::string & value) {
-    auto formattedToken = "${" + token + "}";
-
-    std::size_t pos = total.find(formattedToken);
-
-    while (pos != std::string::npos) {
-        total = total.replace(pos, formattedToken.length(), value);
-        pos = total.find(formattedToken);
-    }
-
-    return *this;
-}
-
-
 std::string StringTemplate::get() {
     return total;
 }
