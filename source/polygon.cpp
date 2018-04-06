@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <iostream>
 #include <string>
 using std::string;
 using std::to_string;
@@ -54,7 +55,6 @@ string Polygon::postscript() const {
 	size_t xStart = ((_boundBox.width-_sideLen)/2);
 	size_t yStart = 1;
 
-    string outStream = "";
     string polygonPsText = R"ps(
         gsave
 
@@ -70,11 +70,11 @@ string Polygon::postscript() const {
     auto formattedPs = StringTemplate(polygonPsText)
         .replace("transform", getTransform())
         .replace("x", xStart)
-        .replace("x", yStart)
+        .replace("y", yStart)
         .replace("poly-path", getPolyPath())
         .get();
 
-	return outStream;
+	return formattedPs;
 }
 
 string Polygon::getPolyPath() const {

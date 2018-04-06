@@ -104,6 +104,8 @@ TEST_CASE("Polygons: copiable") {
 
 TEST_CASE("Polygons: Draw to PostScript") {
 	auto octogon = Polygon(8,20);
+    octogon.translate(200, 200);
+
 	string output = "";
 	SECTION("Can write output") {
 		REQUIRE_NOTHROW(output = octogon.postscript());
