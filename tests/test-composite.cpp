@@ -24,17 +24,14 @@ void toFile(const std::string & fname, const std::string & output) {
 }
 
 CompositePtr addShapes(CompositePtr & composite) {
-    for (auto i = 10; i < 50; i += 10) {
-        auto c = make_shared<Circle>(i);
-        auto r = make_shared<Rectangle>(i, i + 10);
-        auto p = make_shared<Polygon>((i / 10) + 2, 30);
-        composite->add(r);
+    cout << "composite" << endl;
+    for (auto i = 10; i < 40; i += 10) {
+        auto c = make_shared<Polygon>(3, i);
         composite->add(c);
-        composite->add(p);
     }
 
     composite->translate(200, 300);
-    //composite->rotate(-2);
+    composite->rotate(-2);
 
     return composite;
 }
@@ -42,24 +39,43 @@ CompositePtr addShapes(CompositePtr & composite) {
 TEST_CASE("test composites") {
     SECTION("layered") {
         CompositePtr ss = make_shared<LayeredShape>();
+        SECTION("bounding box test") {
 
-        ss = addShapes(ss);
+        }
 
-        std::string out = "";
+        SECTION("visual test") {
+            ss = addShapes(ss);
 
-        REQUIRE_NOTHROW(out = ss->postscript());
+            std::string out = "";
+            REQUIRE_NOTHROW(out = ss->postscript());
 
-        toFile("ps-example/test-stacked.ps", out);
+            toFile("ps-example/test-stacked.ps", out);
+        }
     }
 
     SECTION("horizontal") {
         CompositePtr hs = make_shared<HorizontalShape>();
 
-        hs = addShapes(hs);
-        std::string out = "";
+        auto c = make_shared<Circle>(5);
+        auto r = make_shared<Rectangle>(20, 20);
 
-        REQUIRE_NOTHROW(out = hs->postscript());
+        SECTION("bounding box test") {
+            hs->add(c);
+            hs->add(r);
+            hs->postscript();
 
-        toFile("ps-example/test-horizontal.ps", out);
+            auto correct = BoundingBox(20, 30);
+
+            REQUIRE(correct == hs->getBoundingBox());
+        }
+
+        SECTION("visual test") {
+            hs = addShapes(hs);
+            std::string out = "";
+
+            REQUIRE_NOTHROW(out = hs->postscript());
+
+            toFile("ps-example/test-horizontal.ps", out);
+        }
     }
 }

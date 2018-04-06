@@ -17,7 +17,7 @@ class Shape {
         Shape()=default;
         virtual ~Shape() = default;
 
-        virtual std::string postscript() const = 0;
+        virtual std::string postscript() = 0;
 
         std::string getTransform() const;
 

@@ -2,6 +2,7 @@
 #include "../headers/models.h"
 #include "../headers/shape.h"
 
+#include <iostream>
 #include <string>
 using std::string;
 using std::to_string;
@@ -16,9 +17,11 @@ BoundingBox Rectangle::makeBoundingBox(double width, double height) {
     return BoundingBox(height, width);
 }
 
-std::string Rectangle::postscript() const {
+std::string Rectangle::postscript() {
     auto transforms = getTransform();
     auto box = getBoundingBox();
+
+    std::cout << box.width << std::endl;
 
     string rectanglePs = R"ps(
         gsave
@@ -42,4 +45,8 @@ std::string Rectangle::postscript() const {
 }
 
 Spacer::Spacer(double width, double height): Rectangle(width, height) {}
+
+std::string Spacer::postscript() {
+    return "\n";
+}
 

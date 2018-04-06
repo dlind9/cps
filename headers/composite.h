@@ -13,22 +13,22 @@ class CompositeShape : public Shape {
 
     public:
         CompositeShape() = default;
-        std::string postscript() const override;
+        std::string postscript() override;
 
         void add(ShapePtr shape);
 
     private:
-        virtual std::string getCompositeShapePS() const = 0;
+        virtual std::string getCompositeShapePS() = 0;
 };
 
 class LayeredShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() const override;
+        std::string getCompositeShapePS() override;
 };
 
 class HorizontalShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() const override;
+        std::string getCompositeShapePS() override;
 };
 
 using CompositePtr = std::shared_ptr<CompositeShape>;

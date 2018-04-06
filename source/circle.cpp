@@ -20,7 +20,7 @@ const BoundingBox Circle::makeBoundingBox() const {
     return BoundingBox(_radius * 2, _radius * 2);
 }
 
-string Circle::postscript() const {
+string Circle::postscript() {
     int r = round(_radius);
     std::string transforms = this->getTransform();
 

@@ -20,9 +20,10 @@ class Polygon : public Shape {
 
 		const size_type getNumOfSides() const;
 		const size_type getLenOfSides() const;
-		const BoundingBox getBoundingBox() const;
 
-		std::string postscript() const override;
+        BoundingBox makeBoundingBox();
+
+		std::string postscript() override;
         std::string getPolyPath() const;
 };
 

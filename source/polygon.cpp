@@ -9,7 +9,8 @@ using std::to_string;
 #include "../headers/polygon.h"
 
 Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
-	:_numSides(numSides),
+	:Shape(),
+    _numSides(numSides),
 	_sideLen(sideLen) {
 	if (numSides < 2) {
 		string err = "ERROR: Polygon cannot have less than 5 sides! Did you mean: ";
@@ -22,19 +23,27 @@ Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
 		throw err;
 	}
 
-	if (fmod(numSides,2)==1) {
-		_boundBox.height = (sideLen*(1+cos(M_PI/numSides)))/(2*sin(M_PI/numSides));
-		_boundBox.width = (sideLen*sin(M_PI*(numSides-1)/(2*numSides))/(sin(M_PI/numSides)));
+    setBoundingBox(makeBoundingBox());
+}
+
+BoundingBox Polygon::makeBoundingBox() {
+    double width, height;
+
+	if (fmod(_numSides,2)==1) {
+		height = (_sideLen*(1+cos(M_PI/_numSides)))/(2*sin(M_PI/_numSides));
+		width = (_sideLen*sin(M_PI*(_numSides-1)/(2*_numSides))/(sin(M_PI/_numSides)));
 	}
-	else if (fmod(numSides,4)==0) {
-		_boundBox.height = sideLen*(cos(M_PI/numSides))/(sin(M_PI/numSides));
-		_boundBox.width = (sideLen*cos(M_PI/numSides))/(sin(M_PI/numSides));
+	else if (fmod(_numSides,4)==0) {
+		height = _sideLen*(cos(M_PI/_numSides))/(sin(M_PI/_numSides));
+		width = (_sideLen*cos(M_PI/_numSides))/(sin(M_PI/_numSides));
 	}
-	else if (fmod(numSides,2)==0) {
-		_boundBox.height = sideLen*(cos(M_PI/numSides))/(sin(M_PI/numSides));
-		_boundBox.width = sideLen/(sin(M_PI/numSides));
+	else if (fmod(_numSides,2)==0) {
+		height = _sideLen*(cos(M_PI/_numSides))/(sin(M_PI/_numSides));
+		width = _sideLen/(sin(M_PI/_numSides));
 	}
 	else throw "An error hath!: unable to determine bounding box width and height";
+
+    return BoundingBox(height, width);
 }
 
 const Polygon::size_type Polygon::getNumOfSides() const {
@@ -45,13 +54,9 @@ const Polygon::size_type Polygon::getLenOfSides() const {
 	return _sideLen;
 }
 
-const BoundingBox Polygon::getBoundingBox() const {
-	return _boundBox;
-}
-
 // takes a pair to choose point on page to draw on with (0,0)
 // printing at bottom left, and a string
-string Polygon::postscript() const {
+string Polygon::postscript() {
 	size_t xStart = ((_boundBox.width-_sideLen)/2);
 	size_t yStart = 1;
 

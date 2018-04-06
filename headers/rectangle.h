@@ -12,7 +12,7 @@ class Rectangle : public Shape {
         Rectangle(double width, double height);
         ~Rectangle() override = default;
 
-		std::string postscript() const override;
+		virtual std::string postscript() override;
 
         BoundingBox makeBoundingBox(double width, double height);
 };
@@ -21,6 +21,8 @@ class Spacer : public Rectangle {
     public:
         Spacer(double width, double height);
         ~Spacer() override = default;
+
+		std::string postscript() override;
 };
 
 #endif

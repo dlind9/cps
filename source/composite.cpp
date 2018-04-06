@@ -6,8 +6,10 @@ using std::string;
 #include <iostream>
 using std::endl;
 using std::cout;
+#include <algorithm>
+using std::max;
 
-string CompositeShape::postscript() const {
+string CompositeShape::postscript() {
     auto stackedPsText = R"ps(
         gsave
 
@@ -31,7 +33,7 @@ void CompositeShape::add(ShapePtr shape) {
     shapes.push_back(shape);
 }
 
-string LayeredShape::getCompositeShapePS() const {
+string LayeredShape::getCompositeShapePS() {
     string total = "";
 
     for (const auto & shape : shapes) {
@@ -41,20 +43,31 @@ string LayeredShape::getCompositeShapePS() const {
     return total;
 }
 
-string HorizontalShape::getCompositeShapePS() const {
+string HorizontalShape::getCompositeShapePS() {
     string total = "";
+    auto translation = 0.;
+    BoundingBox newBox(0., 0.);
 
     auto size = shapes.size();
     for (size_t i = 0; i < size; ++i) {
-        total += shapes[i]->postscript();
+        auto shape = shapes[i];
+        auto box = shape->getBoundingBox();
 
+        newBox.width += box.width;
+        newBox.height = max(newBox.height, box.height);
 
-        if (i < size - 1) {
-            auto previousShapesWidth = shapes[i]->getBoundingBox().width;
-            cout << previousShapesWidth << endl;
-            shapes[i+1]->translate(previousShapesWidth, 0);
+        total += shape->postscript();
+
+        if (i + 1 < size) {
+            auto shapesWidth = box.width / 2;
+            auto nextWidth = shapes[i+1]->getBoundingBox().width / 2;
+
+            translation += (shapesWidth + nextWidth);
+            shapes[i+1]->translate(-translation, 0);
         }
     }
+
+    setBoundingBox(newBox);
 
     return total;
 }
