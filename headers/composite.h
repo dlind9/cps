@@ -2,14 +2,22 @@
 #define COMPOSITE_H
 
 #include "shape.h"
+#include "models.h"
 
-class VerticalShape : public Shape {
+#include <string>
+
+class StackedShape : public Shape {
     private:
         ShapePtrs shapes;
 
-        std::string postscript() const override {return "";}
     public:
-        VerticalShape()=default;
+        StackedShape() = default;
+        std::string postscript() const override;
+
+        void add(ShapePtr shape);
+
+    private:
+        std::string getStackedShapesPS() const;
 };
 
 #endif
