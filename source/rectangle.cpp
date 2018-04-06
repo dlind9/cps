@@ -31,10 +31,10 @@ std::string Rectangle::postscript(std::string & outStream, const size_type & x, 
     )ps";
 
     string formattedPs = StringTemplate(rectanglePs)
-        .replace("x", to_string(xStart))
-        .replace("y", to_string(yStart))
-        .replace("width", to_string(_boundingBox.width))
-        .replace("height", to_string(_boundingBox.height))
+        .replace("x", xStart)
+        .replace("y", yStart)
+        .replace("width", _boundingBox.width)
+        .replace("height", _boundingBox.height)
         .get();
 
 	return formattedPs;

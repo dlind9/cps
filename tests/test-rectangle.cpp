@@ -35,10 +35,10 @@ TEST_CASE("Rectangles: Draw to PostScript") {
     string correct = R"ps(
         gsave
         newpath
-        192.000000 196.000000 moveto
-        8.000000 0 rlineto
-        0 4.000000 rlineto
-        -8.000000 0 rlineto
+        192 196 moveto
+        8 0 rlineto
+        0 4 rlineto
+        -8 0 rlineto
         closepath
         stroke
         grestore
