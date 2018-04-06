@@ -9,6 +9,8 @@ void Shape::scale(double x, double y) {
         .replace("x", x)
         .replace("y", y)
         .get();
+
+    _boundingBox.scale(x, y);
 }
 
 void Shape::translate(double x, double y) {

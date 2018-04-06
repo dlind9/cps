@@ -52,6 +52,11 @@ struct BoundingBox {
     BoundingBox(double h, double w): height(h), width(w) {}
 
     std::string toString() const;
+
+    void scale(double x, double y) {
+        width *= x;
+        height *= y;
+    }
 };
 
 bool operator==(const BoundingBox & lhs, const BoundingBox & rhs);

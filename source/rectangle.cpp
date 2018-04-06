@@ -8,14 +8,17 @@ using std::to_string;
 
 
 Rectangle::Rectangle(double width, double height)
-	: _width(width),
-	_height(height) {
-	_boundingBox.width = width;
-	_boundingBox.height = height;
+	: Shape() {
+    setBoundingBox(makeBoundingBox(width, height));
+}
+
+BoundingBox Rectangle::makeBoundingBox(double width, double height) {
+    return BoundingBox(height, width);
 }
 
 std::string Rectangle::postscript() const {
     auto transforms = getTransform();
+    auto box = getBoundingBox();
 
     string rectanglePs = R"ps(
         gsave
@@ -31,8 +34,8 @@ std::string Rectangle::postscript() const {
 
     string formattedPs = StringTemplate(rectanglePs)
         .replace("transform", transforms)
-        .replace("width", _boundingBox.width)
-        .replace("height", _boundingBox.height)
+        .replace("width", box.width)
+        .replace("height", box.height)
         .get();
 
 	return formattedPs;

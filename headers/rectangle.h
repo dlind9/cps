@@ -6,8 +6,6 @@
 #include "models.h"
 
 class Rectangle : public Shape {
-    using size_type = double;
-	size_type _width, _height;
 	BoundingBox _boundingBox;
 
     public:
@@ -15,6 +13,8 @@ class Rectangle : public Shape {
         ~Rectangle() override = default;
 
 		std::string postscript() const override;
+
+        BoundingBox makeBoundingBox(double width, double height);
 };
 
 class Spacer : public Rectangle {
