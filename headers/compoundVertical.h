@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   compoundVertical.h
  * Author: Overlord Dan
  *
@@ -30,7 +30,7 @@ public:
     ~compoundVertical() override = default;
     const Compound getShapes() const;
     const BoundingBox getBoundingBox() const;
-    
+
 private:
     Compound _shapes;
 };

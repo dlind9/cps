@@ -23,6 +23,7 @@ class Polygon : public Shape {
 		const BoundingBox getBoundingBox() const;
 
 		std::string postscript() const override;
+        std::string getPolyPath() const;
 };
 
 bool operator==(const Polygon & lhs, const Polygon & rhs);
