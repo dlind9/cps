@@ -31,7 +31,7 @@ void CompositeShape::add(ShapePtr shape) {
     shapes.push_back(shape);
 }
 
-string StackedShape::getCompositeShapePS() const {
+string LayeredShape::getCompositeShapePS() const {
     string total = "";
 
     for (const auto & shape : shapes) {
@@ -39,4 +39,8 @@ string StackedShape::getCompositeShapePS() const {
     }
 
     return total;
+}
+
+string HorizontalShape::getCompositeShapePS() const {
+    return "";
 }

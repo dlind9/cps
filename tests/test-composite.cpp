@@ -15,28 +15,38 @@ using std::ofstream;
 using std::endl;
 using std::cout;
 
-TEST_CASE("test composites") {
-    StackedShape ss;
-
+CompositePtr addShapes(CompositePtr & composite) {
     for (auto i = 10; i < 50; i += 10) {
         auto c = make_shared<Circle>(i);
         auto r = make_shared<Rectangle>(i, i + 10);
         auto p = make_shared<Polygon>((i / 10) + 2, 30);
-        ss.add(r);
-        ss.add(c);
-        ss.add(p);
+        composite->add(r);
+        composite->add(c);
+        composite->add(p);
     }
 
-    ss.translate(200, 300);
+    composite->translate(200, 300);
 
-    std::string out = "";
+    return composite;
+}
+TEST_CASE("test composites") {
+    SECTION("layered") {
+        CompositePtr ss = make_shared<LayeredShape>();
 
-    REQUIRE_NOTHROW(out = ss.postscript());
+        ss = addShapes(ss);
 
-    ofstream of("ps-example/test-stacked.ps");
-    if (of.is_open()) {
-        of << out << std::endl;
-        of.close();
+        std::string out = "";
+
+        REQUIRE_NOTHROW(out = ss->postscript());
+
+        ofstream of("ps-example/test-stacked.ps");
+        if (of.is_open()) {
+            of << out << std::endl;
+            of.close();
+        }
     }
 
+    SECTION("horizontal") {
+
+    }
 }

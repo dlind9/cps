@@ -5,6 +5,7 @@
 #include "models.h"
 
 #include <string>
+#include <memory>
 
 class CompositeShape : public Shape {
     protected:
@@ -20,9 +21,17 @@ class CompositeShape : public Shape {
         virtual std::string getCompositeShapePS() const = 0;
 };
 
-class StackedShape : public CompositeShape {
+class LayeredShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() const;
+        std::string getCompositeShapePS() const override;
 };
+
+class HorizontalShape : public CompositeShape {
+    public:
+        std::string getCompositeShapePS() const override;
+};
+
+using CompositePtr = std::shared_ptr<CompositeShape>;
+
 
 #endif
