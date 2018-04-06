@@ -49,6 +49,8 @@ const BoundingBox Polygon::getBoundingBox() const {
 	return _boundBox;
 }
 
+// takes a pair to choose point on page to draw on with (0,0)
+// printing at bottom left, and a string
 string Polygon::postscript() const {
 	size_t xStart = ((_boundBox.width-_sideLen)/2);
 	size_t yStart = 1;
@@ -71,7 +73,6 @@ string Polygon::postscript() const {
         .replace("y", yStart)
         .replace("poly-path", getPolyPath())
         .get();
-
 	return formattedPs;
 }
 
