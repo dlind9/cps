@@ -7,7 +7,7 @@ using std::string;
 using std::endl;
 using std::cout;
 
-string StackedShape::postscript() const {
+string CompositeShape::postscript() const {
     auto stackedPsText = R"ps(
         gsave
 
@@ -17,7 +17,7 @@ string StackedShape::postscript() const {
         grestore
     )ps";
 
-    auto stackedShapes = getStackedShapesPS();
+    auto stackedShapes = getCompositeShapePS();
 
     auto formatted = StringTemplate(stackedPsText)
         .replace("transform", getTransform())
@@ -27,11 +27,11 @@ string StackedShape::postscript() const {
     return formatted;
 }
 
-void StackedShape::add(ShapePtr shape) {
+void CompositeShape::add(ShapePtr shape) {
     shapes.push_back(shape);
 }
 
-string StackedShape::getStackedShapesPS() const {
+string StackedShape::getCompositeShapePS() const {
     string total = "";
 
     for (const auto & shape : shapes) {

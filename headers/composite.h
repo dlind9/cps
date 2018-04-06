@@ -6,18 +6,23 @@
 
 #include <string>
 
-class StackedShape : public Shape {
-    private:
+class CompositeShape : public Shape {
+    protected:
         ShapePtrs shapes;
 
     public:
-        StackedShape() = default;
+        CompositeShape() = default;
         std::string postscript() const override;
 
         void add(ShapePtr shape);
 
     private:
-        std::string getStackedShapesPS() const;
+        virtual std::string getCompositeShapePS() const = 0;
+};
+
+class StackedShape : public CompositeShape {
+    public:
+        std::string getCompositeShapePS() const;
 };
 
 #endif
