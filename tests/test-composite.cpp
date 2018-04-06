@@ -26,6 +26,7 @@ CompositePtr addShapes(CompositePtr & composite) {
     }
 
     composite->translate(200, 300);
+    composite->rotate(-2);
 
     return composite;
 }
