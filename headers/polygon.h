@@ -2,6 +2,7 @@
 #define POLYGON_H
 
 #include <algorithm>
+#include <utility>
 #include <cstdlib>
 #include <string>
 #include "shape.h"
@@ -21,7 +22,7 @@ class Polygon : public Shape {
 		const size_type getLenOfSides() const;
 		const BoundingBox getBoundingBox() const;
 
-		virtual std::string postscript(std::string &);
+		virtual std::string postscript(const std::pair<double, double> &, std::string &);
 };
 
 bool operator==(const Polygon & lhs, const Polygon & rhs);

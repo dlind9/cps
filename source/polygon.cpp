@@ -48,9 +48,11 @@ const BoundingBox Polygon::getBoundingBox() const {
 	return _boundBox;
 }
 
-string Polygon::postscript(string & outStream) {
-	size_t xStart = _sideLen;
-	size_t yStart = _boundBox.height;
+//takes a pair to choose point on page to draw on with (0,0)
+//printing at bottom left, and a string
+string Polygon::postscript(const std::pair<double, double> & startPos, string & outStream) {
+	size_t xStart = startPos.first;
+	size_t yStart = startPos.second;
 	size_t angle = 360 / _numSides;
 
 	outStream = outStream + "\n\n\n\ngsave\n";
