@@ -10,7 +10,7 @@
 struct Point {
     double x, y;
 
-    Point() = default;
+    Point(): x(0.0), y(0.0) {}
     Point(double x, double y) : x(x), y(y) {}
 };
 
@@ -48,7 +48,7 @@ StringTemplate& StringTemplate::replace(const std::string & token, const ToStrin
 struct BoundingBox {
     double height, width;
 
-    BoundingBox() = default;
+    BoundingBox(): height(0.0), width(0.0)  {}
     BoundingBox(double h, double w): height(h), width(w) {}
 
     std::string toString() const;

@@ -51,8 +51,8 @@ const BoundingBox Polygon::getBoundingBox() const {
 // takes a pair to choose point on page to draw on with (0,0)
 // printing at bottom left, and a string
 string Polygon::postscript() const {
-	size_t xStart = 0;
-	size_t yStart = 0;
+	size_t xStart = ((_boundBox.width-_sideLen)/2);
+	size_t yStart = 1;
 	size_t angle = 360 / _numSides;
 
     string outStream = "";
