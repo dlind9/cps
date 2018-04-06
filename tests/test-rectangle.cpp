@@ -41,7 +41,7 @@ TEST_CASE("Rectangles: Draw to PostScript") {
 
 
         newpath
-        -50 2 div 70 2 div
+        -50 2 div -70 2 div
          50 70 rectstroke
 
         grestore

@@ -23,7 +23,7 @@ std::string Rectangle::postscript() const {
         ${transform}
 
         newpath
-        -${width} 2 div ${height} 2 div
+        -${width} 2 div -${height} 2 div
          ${width} ${height} rectstroke
 
         grestore
