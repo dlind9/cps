@@ -35,10 +35,18 @@ void CompositeShape::add(ShapePtr shape) {
 
 string LayeredShape::getCompositeShapePS() {
     string total = "";
+    BoundingBox newBox(0, 0);
 
     for (const auto & shape : shapes) {
+        auto box = shape->getBoundingBox();
+
+        newBox.width = max(newBox.width, box.width);
+        newBox.height = max(newBox.height, box.height);
+
         total += shape->postscript();
     }
+
+    setBoundingBox(newBox);
 
     return total;
 }
@@ -64,6 +72,36 @@ string HorizontalShape::getCompositeShapePS() {
 
             translation += (shapesWidth + nextWidth);
             shapes[i+1]->translate(-translation, 0);
+        }
+    }
+
+    setBoundingBox(newBox);
+
+    return total;
+}
+
+
+std::string VerticalShape::getCompositeShapePS() {
+    string total = "";
+    auto translation = 0.;
+    BoundingBox newBox(0., 0.);
+
+    auto size = shapes.size();
+    for (size_t i = 0; i < size; ++i) {
+        auto shape = shapes[i];
+        auto box = shape->getBoundingBox();
+
+        newBox.height += box.height;
+        newBox.width = max(newBox.width, box.width);
+
+        total += shape->postscript();
+
+        if (i + 1 < size) {
+            auto shapesHeight = box.height / 2;
+            auto nextHeight = shapes[i+1]->getBoundingBox().height / 2;
+
+            translation += (shapesHeight + nextHeight);
+            shapes[i+1]->translate(0, -translation);
         }
     }
 

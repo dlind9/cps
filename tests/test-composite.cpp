@@ -24,10 +24,11 @@ void toFile(const std::string & fname, const std::string & output) {
 }
 
 CompositePtr addShapes(CompositePtr & composite) {
-    cout << "composite" << endl;
     for (auto i = 10; i < 40; i += 10) {
-        auto c = make_shared<Polygon>(3, i);
+        auto c = make_shared<Polygon>(i / 10 + 2, i);
+        auto r = make_shared<Circle>(i);
         composite->add(c);
+        composite->add(r);
     }
 
     composite->translate(200, 300);
@@ -37,10 +38,19 @@ CompositePtr addShapes(CompositePtr & composite) {
 }
 
 TEST_CASE("test composites") {
+    auto c = make_shared<Circle>(5);
+    auto r = make_shared<Rectangle>(20, 20);
+
     SECTION("layered") {
         CompositePtr ss = make_shared<LayeredShape>();
         SECTION("bounding box test") {
+            ss->add(c);
+            ss->add(r);
+            ss->postscript();
 
+            auto correct = BoundingBox(20, 20);
+
+            REQUIRE(correct == ss->getBoundingBox());
         }
 
         SECTION("visual test") {
@@ -55,9 +65,6 @@ TEST_CASE("test composites") {
 
     SECTION("horizontal") {
         CompositePtr hs = make_shared<HorizontalShape>();
-
-        auto c = make_shared<Circle>(5);
-        auto r = make_shared<Rectangle>(20, 20);
 
         SECTION("bounding box test") {
             hs->add(c);
@@ -78,4 +85,47 @@ TEST_CASE("test composites") {
             toFile("ps-example/test-horizontal.ps", out);
         }
     }
+
+    SECTION("Vertical") {
+        CompositePtr ss = make_shared<VerticalShape>();
+        SECTION("bounding box test") {
+            ss->add(c);
+            ss->add(r);
+            ss->postscript();
+
+            auto correct = BoundingBox(30, 20);
+
+            REQUIRE(correct == ss->getBoundingBox());
+        }
+
+        SECTION("visual test") {
+            ss = addShapes(ss);
+
+            std::string out = "";
+            REQUIRE_NOTHROW(out = ss->postscript());
+
+            toFile("ps-example/test-vertical.ps", out);
+        }
+    }
+
+    SECTION("composite composite") {
+        CompositePtr stacked = make_shared<LayeredShape>();
+        CompositePtr vertical = make_shared<VerticalShape>();
+        CompositePtr horizontal = make_shared<HorizontalShape>();
+
+        stacked = addShapes(stacked);
+        vertical = addShapes(vertical);
+        horizontal = addShapes(horizontal);
+
+        CompositePtr combined = make_shared<HorizontalShape>();
+        combined->add(stacked);
+        combined->add(vertical);
+        combined->add(horizontal);
+
+        std::string out = "";
+        REQUIRE_NOTHROW(out = combined->postscript());
+
+        toFile("ps-example/test-combined.ps", out);
+    }
+
 }

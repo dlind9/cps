@@ -9,7 +9,7 @@ using std::to_string;
 #include "../headers/polygon.h"
 
 Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
-	:Shape(),
+	: Shape(),
     _numSides(numSides),
 	_sideLen(sideLen) {
 	if (numSides < 2) {
@@ -27,11 +27,11 @@ Polygon::Polygon(const size_type & numSides, const size_type & sideLen)
 }
 
 BoundingBox Polygon::makeBoundingBox() {
-    double width, height;
+    size_type width, height;
 
 	if (fmod(_numSides,2)==1) {
 		height = (_sideLen*(1+cos(M_PI/_numSides)))/(2*sin(M_PI/_numSides));
-		width = (_sideLen*sin(M_PI*(_numSides-1)/(2*_numSides))/(sin(M_PI/_numSides)));
+		width = (_sideLen*sin(M_PI_2*(_numSides-1)/(2*_numSides))/(sin(M_PI/_numSides)));
 	}
 	else if (fmod(_numSides,4)==0) {
 		height = _sideLen*(cos(M_PI/_numSides))/(sin(M_PI/_numSides));
@@ -42,6 +42,8 @@ BoundingBox Polygon::makeBoundingBox() {
 		width = _sideLen/(sin(M_PI/_numSides));
 	}
 	else throw "An error hath!: unable to determine bounding box width and height";
+
+    std::cout << width << ", " << height << std::endl;
 
     return BoundingBox(height, width);
 }
@@ -57,8 +59,11 @@ const Polygon::size_type Polygon::getLenOfSides() const {
 // takes a pair to choose point on page to draw on with (0,0)
 // printing at bottom left, and a string
 string Polygon::postscript() {
-	size_t xStart = ((_boundBox.width-_sideLen)/2);
-	size_t yStart = 1;
+    auto box = getBoundingBox();
+	size_type xStart = 0; //(box.width - _sideLen) / 2.;
+	size_type yStart = 0; //_sideLen - (box.height / 2.);
+
+    translate(-box.width / 2.,- box.height / 2.);
 
     string polygonPsText = R"ps(
         gsave
@@ -84,7 +89,7 @@ string Polygon::postscript() {
 string Polygon::getPolyPath() const {
     string polyPath = "";
 
-	size_t angle = 360 / _numSides;
+	size_type angle = 360 / _numSides;
 	for(size_t i = 0; i < _numSides; ++i) {
         string polyPathText = R"ps(
             ${side-length} 0 rlineto

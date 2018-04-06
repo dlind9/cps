@@ -31,6 +31,12 @@ class HorizontalShape : public CompositeShape {
         std::string getCompositeShapePS() override;
 };
 
+class VerticalShape : public CompositeShape {
+    public:
+        std::string getCompositeShapePS() override;
+};
+
+
 using CompositePtr = std::shared_ptr<CompositeShape>;
 
 
