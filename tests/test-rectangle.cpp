@@ -31,23 +31,26 @@ TEST_CASE("rectangle") {
 }
 
 TEST_CASE("Rectangles: Draw to PostScript") {
-	auto rectangle = Rectangle(8,4);
+	auto rectangle = Rectangle(50,70);
+    rectangle.translate(200, 200);
+
     string correct = R"ps(
         gsave
+
+        200 200 translate
+
+
         newpath
-        192 196 moveto
-        8 0 rlineto
-        0 4 rlineto
-        -8 0 rlineto
-        closepath
-        stroke
+        -50 2 div 70 2 div
+         50 70 rectstroke
+
         grestore
     )ps";
 
 	SECTION("Can write output") {
         string output;
 
-		REQUIRE_NOTHROW(output = rectangle.postscript(output, 200, 200));
+		REQUIRE_NOTHROW(output = rectangle.postscript());
         REQUIRE(output == correct);
 
 		ofstream of("ps-example/test-rectangle.ps");

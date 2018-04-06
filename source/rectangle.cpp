@@ -14,25 +14,23 @@ Rectangle::Rectangle(double width, double height)
 	_boundingBox.height = height;
 }
 
-std::string Rectangle::postscript(std::string & outStream, const size_type & x, const size_type & y) {
-	double xStart = x - _boundingBox.width;
-	double yStart = y - _boundingBox.height;
+std::string Rectangle::postscript() const {
+    auto transforms = getTransform();
 
     string rectanglePs = R"ps(
         gsave
+
+        ${transform}
+
         newpath
-        ${x} ${y} moveto
-        ${width} 0 rlineto
-        0 ${height} rlineto
-        -${width} 0 rlineto
-        closepath
-        stroke
+        -${width} 2 div ${height} 2 div
+         ${width} ${height} rectstroke
+
         grestore
     )ps";
 
     string formattedPs = StringTemplate(rectanglePs)
-        .replace("x", xStart)
-        .replace("y", yStart)
+        .replace("transform", transforms)
         .replace("width", _boundingBox.width)
         .replace("height", _boundingBox.height)
         .get();

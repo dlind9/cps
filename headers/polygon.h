@@ -22,7 +22,7 @@ class Polygon : public Shape {
 		const size_type getLenOfSides() const;
 		const BoundingBox getBoundingBox() const;
 
-		virtual std::string postscript(const std::pair<double, double> &, std::string &);
+		std::string postscript() const override;
 };
 
 bool operator==(const Polygon & lhs, const Polygon & rhs);

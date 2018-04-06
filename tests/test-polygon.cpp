@@ -104,9 +104,9 @@ TEST_CASE("Polygons: copiable") {
 
 TEST_CASE("Polygons: Draw to PostScript") {
 	auto octogon = Polygon(8,20);
-	string output = ""; // could do "/inch {72 mul} def\n\n\n\n"
+	string output = "";
 	SECTION("Can write output") {
-		REQUIRE_NOTHROW(output = octogon.postscript(std::make_pair(0.0,0.0), output));
+		REQUIRE_NOTHROW(output = octogon.postscript());
         ofstream of("ps-example/test-polygon.ps");
 		if (of.is_open()) {
 			of << output << std::endl;

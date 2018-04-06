@@ -14,7 +14,7 @@ class Rectangle : public Shape {
         Rectangle(double width, double height);
         ~Rectangle() override = default;
 
-		std::string postscript(std::string &, const size_type &, const size_type &);
+		std::string postscript() const override;
 };
 
 class Spacer : public Rectangle {

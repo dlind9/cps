@@ -9,12 +9,12 @@ int main() {
     string output="";
     auto triangle = Triangle(100);
     ofstream f("../ps-example/test-triangle.ps");
-    output = triangle.postscript(std::make_pair(0.0,0.0), output);
+    output = triangle.postscript();
     if(f.is_open()) {
         f<<output<<std::endl;
-                
+
         f.close();
     }
     return 1;
-            
+
 }
