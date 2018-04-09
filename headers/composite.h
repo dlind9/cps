@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 
+
 class CompositeShape : public Shape {
     protected:
         ShapePtrs shapes;
@@ -36,8 +37,16 @@ class VerticalShape : public CompositeShape {
         std::string getCompositeShapePS() override;
 };
 
-
 using CompositePtr = std::shared_ptr<CompositeShape>;
+class CustomShape : public HorizontalShape {
+    public:
+        CustomShape();
+    private:
+
+    CompositePtr addShapes(CompositePtr & composite);
+};
+
+
 
 
 #endif

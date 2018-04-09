@@ -1,5 +1,8 @@
 
 #include "../headers/composite.h"
+#include "../headers/polygon.h"
+#include "../headers/circle.h"
+
 
 #include <string>
 using std::string;
@@ -8,6 +11,8 @@ using std::endl;
 using std::cout;
 #include <algorithm>
 using std::max;
+#include <memory>
+using std::make_shared;
 
 string CompositeShape::postscript() {
     auto stackedPsText = R"ps(
@@ -109,3 +114,33 @@ std::string VerticalShape::getCompositeShapePS() {
 
     return total;
 }
+
+CompositePtr CustomShape::addShapes(CompositePtr & composite) {
+    for (auto i = 10; i < 40; i += 10) {
+        auto c = make_shared<Polygon>(i / 10 + 2, i);
+        auto r = make_shared<Circle>(i);
+        composite->add(c);
+        composite->add(r);
+    }
+
+    composite->translate(200, 300);
+    composite->rotate(-2);
+
+    return composite;
+}
+
+
+CustomShape::CustomShape(): HorizontalShape() {
+        CompositePtr stacked = make_shared<LayeredShape>();
+        CompositePtr vertical = make_shared<VerticalShape>();
+        CompositePtr horizontal = make_shared<HorizontalShape>();
+
+        stacked = addShapes(stacked);
+        vertical = addShapes(vertical);
+        horizontal = addShapes(horizontal);
+
+        add(stacked);
+        add(vertical);
+        add(horizontal);
+}
+

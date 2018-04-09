@@ -108,19 +108,8 @@ TEST_CASE("test composites") {
         }
     }
 
-    SECTION("composite composite") {
-        CompositePtr stacked = make_shared<LayeredShape>();
-        CompositePtr vertical = make_shared<VerticalShape>();
-        CompositePtr horizontal = make_shared<HorizontalShape>();
-
-        stacked = addShapes(stacked);
-        vertical = addShapes(vertical);
-        horizontal = addShapes(horizontal);
-
-        CompositePtr combined = make_shared<HorizontalShape>();
-        combined->add(stacked);
-        combined->add(vertical);
-        combined->add(horizontal);
+    SECTION("custom composite composite") {
+        CompositePtr combined = make_shared<CustomShape>();
 
         std::string out = "";
         REQUIRE_NOTHROW(out = combined->postscript());
