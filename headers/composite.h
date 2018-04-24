@@ -19,22 +19,31 @@ class CompositeShape : public Shape {
         void add(ShapePtr shape);
 
     private:
-        virtual std::string getCompositeShapePS() = 0;
+        std::string getCompositeShapePS();
+        virtual void adjustBoundingBox(BoundingBox &, const BoundingBox & box) = 0;
+        virtual bool translationIsNeeded() = 0;
+        virtual double compositeTranslation(const BoundingBox &, const BoundingBox &) = 0;
 };
 
 class LayeredShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() override;
+        void adjustBoundingBox(BoundingBox &, const BoundingBox &) override;
+        bool translationIsNeeded() override;
+        double compositeTranslation(const BoundingBox & currBox, const BoundingBox & nextBox) override;
 };
 
 class HorizontalShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() override;
+        void adjustBoundingBox(BoundingBox &, const BoundingBox &) override;
+        bool translationIsNeeded() override;
+        double compositeTranslation(const BoundingBox &, const BoundingBox &) override;
 };
 
 class VerticalShape : public CompositeShape {
     public:
-        std::string getCompositeShapePS() override;
+        void adjustBoundingBox(BoundingBox &, const BoundingBox &) override;
+        bool translationIsNeeded() override;
+        double compositeTranslation(const BoundingBox &, const BoundingBox &) override;
 };
 
 using CompositePtr = std::shared_ptr<CompositeShape>;

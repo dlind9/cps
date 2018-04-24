@@ -38,76 +38,68 @@ void CompositeShape::add(ShapePtr shape) {
     shapes.push_back(shape);
 }
 
-string LayeredShape::getCompositeShapePS() {
-    string total = "";
-    BoundingBox newBox(0, 0);
-
-    for (const auto & shape : shapes) {
-        auto box = shape->getBoundingBox();
-
-        newBox.width = max(newBox.width, box.width);
-        newBox.height = max(newBox.height, box.height);
-
-        total += shape->postscript();
-    }
-
-    setBoundingBox(newBox);
-
-    return total;
+void LayeredShape::adjustBoundingBox(BoundingBox & newBox, const BoundingBox & box)  {
+    newBox.width = max(newBox.width, box.width);
+    newBox.height = max(newBox.height, box.height);
 }
 
-string HorizontalShape::getCompositeShapePS() {
+void HorizontalShape::adjustBoundingBox(BoundingBox & newBox, const BoundingBox & box)  {
+    newBox.width += box.width;
+    newBox.height = max(newBox.height, box.height);
+}
+
+void VerticalShape::adjustBoundingBox(BoundingBox & newBox, const BoundingBox & box)  {
+    newBox.width = max(newBox.width, box.width);
+    newBox.height += box.height;
+}
+
+bool LayeredShape::translationIsNeeded()  {
+    return false;
+}
+
+bool HorizontalShape::translationIsNeeded()  {
+    return true;
+}
+
+bool VerticalShape::translationIsNeeded()  {
+    return true;
+}
+
+double HorizontalShape::compositeTranslation(const BoundingBox & currBox, const BoundingBox & nextBox) {
+    auto shapesWidth = currBox.width / 2;
+    auto nextWidth = nextBox.width / 2;
+    return (shapesWidth + nextWidth);
+}
+
+double VerticalShape::compositeTranslation(const BoundingBox & currBox, const BoundingBox & nextBox) {
+    auto shapesHeight = currBox.height / 2;
+    auto nextHeight = nextBox.height / 2;
+    return (shapesHeight + nextHeight);
+}
+
+double LayeredShape::compositeTranslation(const BoundingBox & currBox, const BoundingBox & nextBox) {
+    return 0;
+}
+
+std::string CompositeShape::getCompositeShapePS() {
     string total = "";
     auto translation = 0.;
     BoundingBox newBox(0., 0.);
 
     auto size = shapes.size();
     for (size_t i = 0; i < size; ++i) {
-        auto shape = shapes[i];
-        auto box = shape->getBoundingBox();
+        auto box = shapes[i]->getBoundingBox();
 
-        newBox.width += box.width;
-        newBox.height = max(newBox.height, box.height);
+        adjustBoundingBox(newBox, box);
 
-        total += shape->postscript();
-
-        if (i + 1 < size) {
-            auto shapesWidth = box.width / 2;
-            auto nextWidth = shapes[i+1]->getBoundingBox().width / 2;
-
-            translation += (shapesWidth + nextWidth);
-            shapes[i+1]->translate(-translation, 0);
+        total += shapes[i]->postscript();
+        if (translationIsNeeded())    {
+           if (i + 1 < size) {
+                translation += compositeTranslation(box, (shapes[i+1]->getBoundingBox()));
+                shapes[i+1]->translate(0, -translation);
+            }
         }
-    }
 
-    setBoundingBox(newBox);
-
-    return total;
-}
-
-
-std::string VerticalShape::getCompositeShapePS() {
-    string total = "";
-    auto translation = 0.;
-    BoundingBox newBox(0., 0.);
-
-    auto size = shapes.size();
-    for (size_t i = 0; i < size; ++i) {
-        auto shape = shapes[i];
-        auto box = shape->getBoundingBox();
-
-        newBox.height += box.height;
-        newBox.width = max(newBox.width, box.width);
-
-        total += shape->postscript();
-
-        if (i + 1 < size) {
-            auto shapesHeight = box.height / 2;
-            auto nextHeight = shapes[i+1]->getBoundingBox().height / 2;
-
-            translation += (shapesHeight + nextHeight);
-            shapes[i+1]->translate(0, -translation);
-        }
     }
 
     setBoundingBox(newBox);
